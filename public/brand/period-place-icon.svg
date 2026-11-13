@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Period Place</title>
+  <desc id="desc">The Period Place map-pin logo on a cream rounded square.</desc>
+  <rect width="512" height="512" rx="112" fill="#fff6f7"/>
+  <path d="M256 74c-92 0-166 70-166 161 0 128 166 241 166 241s166-113 166-241C422 144 348 74 256 74Z" fill="#9d174d"/>
+  <circle cx="256" cy="235" r="86" fill="#fffafb"/>
+  <path d="M195 235h122" stroke="#f8cad9" stroke-width="15" stroke-linecap="round"/>
+  <circle cx="256" cy="235" r="36" fill="#e65678"/>
+</svg>

@@ -1,0 +1,44 @@
+{
+  "name": "period-product-finder",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run lint && npm run test && npm run build",
+    "db:migrate": "node --conditions=react-server --import tsx scripts/database.ts migrate",
+    "db:check": "node --conditions=react-server --import tsx scripts/database.ts check",
+    "db:export": "node --conditions=react-server --import tsx scripts/database.ts export",
+    "db:restore": "node --conditions=react-server --import tsx scripts/database.ts restore",
+    "demo": "npx serve demo"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^7.8.3",
+    "@libsql/client": "^0.17.4",
+    "@vercel/analytics": "^2.0.1",
+    "jose": "^6.2.10",
+    "maplibre-gl": "^6.6.0",
+    "next": "16.4.2",
+    "proj4": "^2.22.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.2",
+    "tsx": "^4.23.13",
+    "typescript": "^5",
+    "vitest": "^4.1.11"
+  }
+}

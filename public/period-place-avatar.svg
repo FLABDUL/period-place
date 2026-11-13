@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Period Place</title>
+  <desc id="desc">A cream square with a dark green organic circle and a white letter P.</desc>
+  <rect width="512" height="512" rx="112" fill="#fffaf1"/>
+  <path d="M256 72c103 0 184 76 184 181 0 112-77 187-184 187-110 0-184-73-184-187C72 147 149 72 256 72Z" fill="#9d174d"/>
+  <text x="256" y="330" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="216" font-weight="700" text-anchor="middle">P</text>
+</svg>
