@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 300" role="img" aria-labelledby="title desc">
+  <title id="title">Period Place map pin</title>
+  <desc id="desc">A burgundy location pin with a cream centre, pink dot and horizontal line.</desc>
+  <path d="M128 12C65 12 14 61 14 124c0 88 114 166 114 166s114-78 114-166C242 61 191 12 128 12Z" fill="#9d174d"/>
+  <circle cx="128" cy="124" r="59" fill="#fffafb"/>
+  <path d="M86 124h84" stroke="#f8cad9" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="128" cy="124" r="25" fill="#e65678"/>
+</svg>

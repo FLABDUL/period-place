@@ -6,7 +6,9 @@ Period Place was a UK finder for free period products, built with Next.js, TypeS
 
 ## Try it
 
-The `demo/` directory is the self-contained browser demonstration hosted on the portfolio: search, product filtering, venue evidence and simulated moderated reporting. Serve it with any static web server. Its venues are fictional, its map is schematic, and reports are neither sent nor persisted.
+The `demo/` directory is the browser demonstration hosted on the portfolio. It recreates the original burgundy/pink interface and typography, homepage, searchable finder, combined product filters, interactive geographic map, location evidence, coverage, visitor reports and moderation queue. Serve it with a static web server that serves `.mjs` as JavaScript. All venues, products and reports are fictional. Approved sample reports update the demonstration in memory; reloading resets them. Nothing is submitted to a backend.
+
+MapLibre GL JS 6.6.0 and the DM Sans and Fraunces fonts are included locally with their respective BSD and SIL Open Font licences. Map tiles load from OpenStreetMap only when the finder is opened; visible attribution is retained. Automated browser checks should stub tile requests rather than download public map tiles. The main application source and the static demonstration remain distinct: the demonstration does not reconnect the retired service.
 
 ## Explore the original application architecture
 

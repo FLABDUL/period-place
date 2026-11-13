@@ -1,93 +1,80 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex" />
-    <title>Period Place · Interactive demo</title>
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Period Place · Full experience demo</title>
+    <link rel="icon" href="brand.svg" />
+    <link rel="stylesheet" href="original.css" />
+    <link rel="stylesheet" href="vendor/maplibre-gl.css" />
     <link rel="stylesheet" href="demo.css" />
-    <script src="demo.js" defer></script>
+    <script type="module" src="demo.js"></script>
   </head>
   <body>
-    <div class="notice">
-      <strong>Portfolio demo</strong> · Fictional venues and product
-      availability. Do not use this to find real supplies.
-    </div>
-    <header>
-      <a class="brand" href="/projects/period-place/">✳ Period Place</a>
-      <nav>
-        <a href="/projects/period-place/">Case study</a
-        ><a href="https://github.com/FLABDUL/period-place">Source code ↗</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <aside class="demo-notice" aria-label="Demonstration notice">
+      <strong>Interactive portfolio demo</strong> · Fictional venues, products
+      and reports. The original service is retired.
+      <a href="https://www.madebyhakim.com/projects/period-place/"
+        >Original screenshot &amp; case study ↗</a
+      >
+    </aside>
+    <header class="site-header">
+      <a class="brand" href="#home"
+        ><img src="brand.svg" width="34" height="40" alt="" /><span
+          >Period Place</span
+        ></a
+      >
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#find">Find products</a><a href="#coverage">Coverage</a
+        ><a href="#report">Report a change</a
+        ><a href="#feedback">Give feedback</a><a href="#about">About</a>
       </nav>
+      <button class="theme-toggle" id="theme" disabled>☀ Light</button>
+      <details class="nav-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="#home">Home</a><a href="#find">Find products</a
+          ><a href="#coverage">Coverage</a><a href="#report">Report a change</a
+          ><a href="#feedback">Give feedback</a><a href="#about">About</a
+          ><a href="#moderation">Demo moderation</a>
+        </nav>
+      </details>
     </header>
-    <main>
-      <p class="eyebrow">Free products. Clear evidence.</p>
-      <h1>Find products that suit you.</h1>
-      <p class="intro">
-        Explore the finder’s search, product filters and evidence labels. Every
-        location below is a fictional example.
-      </p>
-      <section class="search" aria-label="Find sample locations">
-        <label for="search">Place, venue or product</label
-        ><input
-          id="search"
-          type="search"
-          placeholder="Try Riverside or reusable"
-          disabled
-        />
-        <fieldset>
-          <legend>Product type</legend>
-          <div id="filters"></div>
-        </fieldset>
-        <button id="reset" disabled>Clear search and filters</button>
-        <p id="count" role="status"></p>
-      </section>
-      <div class="workspace">
-        <section aria-label="Matching locations">
-          <div id="results"></div>
-        </section>
-        <aside>
-          <div class="map">
-            <p>Illustrative neighbourhood map · not geographic</p>
-            <div id="markers" aria-label="Select a sample venue"></div>
-            <span class="river" aria-hidden="true">River</span>
-          </div>
-          <section id="detail" aria-label="Location details" tabindex="-1">
-            <h2>Select a venue</h2>
-            <p>
-              Open a card or map marker to inspect its access arrangements and
-              evidence.
-            </p>
-          </section>
-        </aside>
-      </div>
-      <section class="report">
-        <h2>Try the moderated reporting flow</h2>
-        <p>
-          A report would enter a review queue before changing a live listing.
-          This simulation stays in this page and resets when you leave.
-        </p>
-        <form id="report">
-          <label for="venue">Sample venue</label
-          ><select id="venue" required></select
-          ><label for="availability">What did you find?</label
-          ><select id="availability">
-            <option>Products available</option>
-            <option>Low stock</option>
-            <option>Dispenser empty</option>
-            <option>Could not find the products</option></select
-          ><button type="submit" disabled>Simulate submitting a report</button>
-        </form>
-        <p id="report-status" role="status"></p>
+    <main id="main-content" tabindex="-1">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Free products · community knowledge</p>
+          <h1>Find free period products near you</h1>
+          <p class="hero-intro">
+            Explore the original product experience with fictional demonstration
+            data.
+          </p>
+          <p>Loading the interactive demo…</p>
+        </div>
       </section>
       <noscript
-        >This interactive demo needs JavaScript. The case study and source
-        remain available above.</noscript
+        >This demo needs JavaScript.
+        <a href="https://www.madebyhakim.com/projects/period-place/"
+          >Read the case study and see the original website screenshot.</a
+        ></noscript
       >
     </main>
     <footer>
-      Archived service · Interactive demonstration with fictional data ·
-      <a href="/projects/">All projects</a>
+      <p>
+        <strong>Period Place</strong> · Created by
+        <a href="https://www.madebyhakim.com/">Hakim</a>.<br />All demo
+        submissions stay in memory and reset when this page reloads.
+      </p>
+      <p>
+        <a href="#moderation">Demo moderation</a> ·
+        <a href="https://github.com/FLABDUL/period-place">Source code ↗</a> ·
+        <a href="https://www.madebyhakim.com/projects/period-place/"
+          >Case study</a
+        ><br /><a href="#about">Demo limitations &amp; map credits</a>
+      </p>
     </footer>
   </body>
 </html>
