@@ -636,18 +636,31 @@ function route() {
     pins = []
   }
   document.querySelector(".nav-menu").open = false
-  ;(
-    ({
-      home,
-      find: finder,
-      coverage,
-      location: () => detail(id),
-      report: () => report(id),
-      moderation,
-      feedback,
-      about,
-    })[view] || home
-  )()
+  switch (view) {
+    case "find":
+      finder()
+      break
+    case "coverage":
+      coverage()
+      break
+    case "location":
+      detail(id)
+      break
+    case "report":
+      report(id)
+      break
+    case "moderation":
+      moderation()
+      break
+    case "feedback":
+      feedback()
+      break
+    case "about":
+      about()
+      break
+    default:
+      home()
+  }
   document.querySelectorAll("header nav a").forEach(a => {
     if (a.hash === "#" + view) a.setAttribute("aria-current", "page")
     else a.removeAttribute("aria-current")
