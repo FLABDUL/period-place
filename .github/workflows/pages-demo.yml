@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Verify browser-only archive and required assets
         run: |
           set -euo pipefail
@@ -35,6 +38,9 @@ jobs:
           if grep -nE 'fetch\(|XMLHttpRequest|sendBeacon\(' demo/demo.js; then
             echo 'Network submission found in static demonstration'; exit 1
           fi
+      - run: npm --prefix demo install --no-audit --no-fund
+      - run: cd demo && npx playwright install --with-deps chromium
+      - run: npm --prefix demo run test:e2e
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
