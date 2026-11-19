@@ -1,0 +1,48 @@
+name: Verify Period Place branded domain
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/custom-domain-smoke.yml']
+  workflow_run:
+    workflows: ['Publish Period Place archive demo']
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-branded-site:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for HTTPS and verify domain target
+        shell: bash
+        run: |
+          set -euo pipefail
+          ok=0
+          for attempt in $(seq 1 24); do
+            if curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 "https://periodplace.org/" -o /tmp/archive-home &&
+                grep -q 'Period Place' /tmp/archive-home; then
+              ok=1
+              break
+            fi
+            echo "HTTPS/hostname not ready on attempt ${attempt}; retrying"
+            sleep 10
+          done
+          test "$ok" -eq 1 || { echo 'Branded-domain HTTPS or content check failed'; exit 1; }
+          target=$(curl -sSL -o /tmp/archive-www -w '%{url_effective}' --max-time 30 "https://www.periodplace.org/")
+          test "$target" = "https://periodplace.org/" || { echo "Unexpected www redirect target: $target"; exit 1; }
+          grep -q 'Period Place' /tmp/archive-www
+      - name: Install test tooling
+        run: npm --prefix demo install --no-audit --no-fund
+      - run: cd demo && npx playwright install --with-deps chromium
+      - name: Verify actual custom-domain browser behaviour
+        run: npm --prefix demo run test:e2e
+        env:
+          BASE_URL: https://periodplace.org/
