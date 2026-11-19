@@ -56,8 +56,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Assemble public-only static artifact
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          cp demo/index.html demo/demo.js demo/demo.css demo/original.css demo/brand.svg site/
+          cp -R demo/fonts demo/vendor site/
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: demo
+          path: site
       - uses: actions/deploy-pages@v4
         id: deployment
