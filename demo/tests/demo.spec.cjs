@@ -20,7 +20,7 @@ test("Period Place restores the original interface and combined evidence filters
 }) => {
   const errors = []
   page.on("pageerror", error => errors.push(error.message))
-  await page.goto("/")
+  await page.goto("./")
   await expect(page.locator("#theme")).toBeEnabled()
   await expect(
     page.getByRole("heading", { name: "Find free period products near you" }),
@@ -34,7 +34,7 @@ test("Period Place restores the original interface and combined evidence filters
     "vendor/maplibre-gl.mjs",
     "fonts/dm-sans.woff2",
   ]) {
-    expect((await request.get(`/${asset}`)).status()).toBe(
+    expect((await request.get(`./${asset}`)).status()).toBe(
       200,
     )
   }
@@ -97,7 +97,7 @@ test("Period Place restores the original interface and combined evidence filters
     fullPage: true,
   })
   for (const unknownView of ["constructor", "__proto__", "missing"]) {
-    await page.goto(`/#${unknownView}`)
+    await page.goto(`./#${unknownView}`)
     await expect(
       page.getByRole("heading", { name: "Find free period products near you" }),
     ).toBeVisible()
@@ -117,7 +117,7 @@ test("Period Place moderation gates stock changes and keeps submissions local", 
       url.pathname === "/login/validate"
     if (request.method() === "POST" && !previewLogin) posts.push(request.url())
   })
-  await page.goto("/#report/riverside")
+  await page.goto("./#report/riverside")
   await expect(
     page.getByRole("button", { name: "Submit demo report" }),
   ).toBeEnabled()
@@ -173,7 +173,7 @@ test("Period Place works on mobile with accessible themes and coverage", async (
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto("/")
+  await page.goto("./")
   await expect(page.locator("#theme")).toBeEnabled()
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([])
   await page.locator("#theme").click()
