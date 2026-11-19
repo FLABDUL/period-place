@@ -1,0 +1,32 @@
+name: Diagnose archive custom-domain readiness
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/domain-diagnostics.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check DNS, HTTP response and GitHub Pages configuration
+        shell: bash
+        run: |
+          for item in "periodplace.org period-place" "residuelens.com residue-lens"; do
+            set -- $item
+            domain="$1"
+            repo="$2"
+            echo "===== $domain ====="
+            echo "A: $(dig +short A "$domain" | tr '\n' ' ')"
+            echo "www CNAME: $(dig +short CNAME "www.$domain" | tr '\n' ' ')"
+            echo "apex TLS:"
+            curl -IL --max-time 12 --connect-timeout 5 -sS -o /dev/null -w 'status=%{http_code} final=%{url_effective} ssl=%{ssl_verify_result}\n' "https://$domain/" || true
+            echo "www TLS:"
+            curl -IL --max-time 12 --connect-timeout 5 -sS -o /dev/null -w 'status=%{http_code} final=%{url_effective} ssl=%{ssl_verify_result}\n' "https://www.$domain/" || true
+            echo "GitHub Pages API:"
+            curl -fsSL --max-time 10 -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/FLABDUL/$repo/pages" |
+              python3 -c 'import sys,json; x=json.load(sys.stdin); print(json.dumps({k:x.get(k) for k in ["status","cname","html_url","https_enforced","pending_domain_unverified_at","protected_domain_state","https_certificate"]},indent=2))' || true
+          done
