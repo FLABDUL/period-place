@@ -1,0 +1,63 @@
+name: Publish Period Place archive demo
+on:
+  pull_request:
+    paths: ['demo/**', '.github/workflows/pages-demo.yml']
+  push:
+    branches: [main]
+    paths: ['demo/**', '.github/workflows/pages-demo.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify browser-only archive and required assets
+        run: |
+          set -euo pipefail
+          test -s demo/index.html
+          test -s demo/demo.js
+          test -s demo/demo.css
+          test -s demo/original.css
+          test -s demo/brand.svg
+          test -s demo/vendor/maplibre-gl.mjs
+          test -s demo/vendor/maplibre-gl-worker.mjs
+          test -s demo/fonts/fraunces.woff2
+          grep -q 'Fictional venues' demo/index.html
+          grep -q 'noindex' demo/index.html
+          node --check demo/demo.js
+      - name: Check for network submission endpoints
+        run: |
+          set -euo pipefail
+          if grep -nE 'fetch\(|XMLHttpRequest|sendBeacon\(' demo/demo.js; then
+            echo 'Network submission found in static demonstration'; exit 1
+          fi
+      - run: npm --prefix demo install --no-audit --no-fund
+      - run: cd demo && npx playwright install --with-deps chromium
+      - run: npm --prefix demo run test:e2e
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: demo
+      - uses: actions/deploy-pages@v4
+        id: deployment
