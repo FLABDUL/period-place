@@ -64,6 +64,7 @@ jobs:
           mkdir -p site
           cp demo/index.html demo/demo.js demo/demo.css demo/original.css demo/brand.svg site/
           cp -R demo/fonts demo/vendor site/
+          printf '%s\n' 'periodplace.org' > site/CNAME
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
